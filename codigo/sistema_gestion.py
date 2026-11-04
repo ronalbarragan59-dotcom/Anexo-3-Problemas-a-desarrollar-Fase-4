@@ -1,25 +1,35 @@
-# Importamos la clase Cliente
+# Importamos las clases necesarias
 from clientes import Cliente
+from registros import RegistroSistema
 
 
-# Clase para administrar el sistema
 class SistemaGestion:
 
     def __init__(self):
         self.clientes = []
+        self.registro = RegistroSistema()
 
     # Metodo para registrar clientes
     def registrar_cliente(self, cliente):
 
-        if not isinstance(cliente, Cliente):
-            raise TypeError("El dato ingresado no es un cliente valido")
+        try:
+            if not isinstance(cliente, Cliente):
+                raise TypeError("El dato ingresado no es un cliente valido")
 
-        for cliente_guardado in self.clientes:
-            if cliente_guardado._identificacion == cliente._identificacion:
-                raise ValueError("Ya existe un cliente con esa identificacion")
+            for cliente_guardado in self.clientes:
+                if cliente_guardado._identificacion == cliente._identificacion:
+                    raise ValueError("Ya existe un cliente con esa identificacion")
 
-        self.clientes.append(cliente)
-        print("Cliente agregado al sistema correctamente")
+            self.clientes.append(cliente)
+            self.registro.guardar_evento(
+                "Cliente registrado: " + cliente._identificacion
+            )
+
+            print("Cliente agregado al sistema correctamente")
+
+        except (ValueError, TypeError) as error:
+            self.registro.guardar_error(str(error))
+            raise
 
     # Metodo para consultar clientes
     def consultar_clientes(self):
