@@ -1,12 +1,15 @@
-
-# Importamos la clase Cliente
+# Importamos las clases necesarias
 from clientes import Cliente
+from sistema_gestion import SistemaGestion
 
 print("================================")
-print(" SISTEMA SOFTWARE FJ")
+print("       SISTEMA SOFTWARE FJ")
 print("================================")
 
-# Registro de un cliente correcto
+# Creamos el sistema
+sistema = SistemaGestion()
+
+# Primera prueba: registrar un cliente correcto
 try:
     cliente1 = Cliente(
         "1020304050",
@@ -15,14 +18,13 @@ try:
         "3104567890"
     )
 
-    print("\nCliente registrado correctamente:")
-    cliente1.mostrar_informacion()
+    sistema.registrar_cliente(cliente1)
 
-except ValueError as error:
+except (ValueError, TypeError) as error:
     print("Error al registrar cliente:", error)
 
 
-# Intento de registrar un cliente incorrecto
+# Segunda prueba: registrar un cliente incorrecto
 try:
     cliente2 = Cliente(
         "1020304051",
@@ -31,9 +33,15 @@ try:
         "123"
     )
 
-    print("\nCliente registrado:")
-    cliente2.mostrar_informacion()
+    sistema.registrar_cliente(cliente2)
 
-except ValueError as error:
+except (ValueError, TypeError) as error:
     print("\nNo se pudo registrar el segundo cliente:")
     print(error)
+
+
+# Consultamos los clientes registrados
+print("\nCONSULTA DE CLIENTES")
+sistema.consultar_clientes()
+
+print("\nFin de las pruebas.")
