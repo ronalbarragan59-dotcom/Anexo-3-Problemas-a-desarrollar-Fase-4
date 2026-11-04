@@ -1,4 +1,5 @@
 # Importamos las clases necesarias
+from excepciones import ErrorCliente
 from clientes import Cliente
 from sistema_gestion import SistemaGestion
 
