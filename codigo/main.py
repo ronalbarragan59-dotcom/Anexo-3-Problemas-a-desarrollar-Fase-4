@@ -39,6 +39,8 @@ except (ValueError, TypeError) as error:
     print("\nNo se pudo registrar el segundo cliente:")
     print(error)
 
+    sistema.registro.guardar_error(str(error))
+
 
 # Consultamos los clientes registrados
 print("\nCONSULTA DE CLIENTES")
