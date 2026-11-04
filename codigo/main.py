@@ -1,7 +1,7 @@
 # Importamos las clases necesarias
-from excepciones import ErrorCliente
 from clientes import Cliente
 from sistema_gestion import SistemaGestion
+from excepciones import ErrorCliente
 
 print("================================")
 print("       SISTEMA SOFTWARE FJ")
@@ -21,8 +21,9 @@ try:
 
     sistema.registrar_cliente(cliente1)
 
-except (ValueError, TypeError) as error:
+except (ErrorCliente, ValueError, TypeError) as error:
     print("Error al registrar cliente:", error)
+    sistema.registro.guardar_error(str(error))
 
 
 # Segunda prueba: registrar un cliente incorrecto
@@ -36,7 +37,7 @@ try:
 
     sistema.registrar_cliente(cliente2)
 
-except (ValueError, TypeError) as error:
+except (ErrorCliente, ValueError, TypeError) as error:
     print("\nNo se pudo registrar el segundo cliente:")
     print(error)
 
