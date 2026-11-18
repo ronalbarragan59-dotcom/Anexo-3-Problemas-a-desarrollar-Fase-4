@@ -20,6 +20,9 @@ try:
 
     print("\n--- Métodos del Servicio (Sala) ---")
     print(sala.describir_servicios())
+    print("Costo normal:", sala.calcular_costos())
+    print("Costo con descuento:", sala.calcular_costos(descuento=10))
+    print("Costo con descuento e impuesto:", sala.calcular_costos(descuento=10, impuesto=19))
     print("Validación de parámetros:", sala.validar_parametros())
 
     print("\n--- Métodos de la Reserva (Sala) ---")
