@@ -23,15 +23,24 @@ class Reserva:
         self.servicio = servicio
         self.duracion = duracion
         self.estado = "pendiente"
-    
+
     def ConfirmarEstadoDeLaReserva(self):
-        if self.estado == "Cancelada":
-            raise ErrorReserva("No se puede confirmar una reserva cancelada")
+        if self.estado != "pendiente":
+            raise ErrorReserva("La reserva no se puede confirmar en su estado actual")
 
         self.estado = "Confirmada"
-        
+
     def CancelacionDeLaReserva(self):
         if self.estado == "Cancelada":
-            raise ErrorReserva("La reserva ya se encuentra cancelada y ya no se puede volver a modificar")
-        else:
-            self.estado = "Cancelada"
+            raise ErrorReserva("La reserva ya se encuentra cancelada")
+
+        if self.estado == "Procesada":
+            raise ErrorReserva("No se puede cancelar una reserva procesada")
+
+        self.estado = "Cancelada"
+
+    def ProcesarReserva(self):
+        if self.estado != "Confirmada":
+            raise ErrorReserva("La reserva debe estar confirmada para procesarse")
+
+        self.estado = "Procesada"
