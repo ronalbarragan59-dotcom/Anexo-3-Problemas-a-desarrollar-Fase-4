@@ -1,7 +1,10 @@
+
 # Importamos las clases necesarias
 from clientes import Cliente
+from servicios import ReservaSala, AlquilerDeEquipos, AsesoriaPersonalizada
+from reservas import Reserva
 from sistema_gestion import SistemaGestion
-from excepciones import ErrorCliente
+from excepciones import ErrorCliente, ErrorServicio, ErrorReserva
 
 print("================================")
 print("       SISTEMA SOFTWARE FJ")
@@ -47,5 +50,46 @@ except (ErrorCliente, ValueError, TypeError) as error:
 # Consultamos los clientes registrados
 print("\nCONSULTA DE CLIENTES")
 sistema.consultar_clientes()
+
+
+# Tercera prueba: registrar servicios
+print("\nREGISTRO DE SERVICIOS")
+
+try:
+    sala = ReservaSala("Sala Ejecutiva", 100000, 2, "Mediana")
+    sistema.registrar_servicio(sala)
+
+    equipo = AlquilerDeEquipos("Kit Multimedia", 50000, 3, "Video Beam")
+    sistema.registrar_servicio(equipo)
+
+    asesoria = AsesoriaPersonalizada(
+        "Asesoria de Software", 130000, 1, "Virtual", 50000
+    )
+    sistema.registrar_servicio(asesoria)
+
+except ErrorServicio as error:
+    print("Error al registrar servicio:", error)
+
+
+# Consultamos los servicios registrados
+print("\nCONSULTA DE SERVICIOS")
+sistema.consultar_servicios()
+
+
+# Cuarta prueba: registrar una reserva
+print("\nREGISTRO DE RESERVA")
+
+try:
+    reserva1 = Reserva(cliente1, sala, 2)
+    sistema.registrar_reserva(reserva1)
+
+except (ErrorReserva, ErrorCliente, ErrorServicio) as error:
+    print("Error al registrar reserva:", error)
+
+
+# Consultamos las reservas registradas
+print("\nCONSULTA DE RESERVAS")
+sistema.consultar_reservas()
+
 
 print("\nFin de las pruebas.")
