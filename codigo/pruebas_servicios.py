@@ -4,11 +4,13 @@ from reservas import Reserva
 from servicios import ReservaSala, AlquilerDeEquipos, AsesoriaPersonalizada
 from excepciones import ErrorReserva, ErrorCliente
 
+
 # --- 1. PRUEBA: Reserva de Sala ---
 try:
     print("\n========================================")
     print("=== 1. PRUEBA DE RESERVA DE SALA ===")
     print("========================================")
+
     nombre_cliente = input("Ingrese el nombre del cliente: ")
     duracion = float(input("Ingrese la duración en horas (ej: 2): "))
 
@@ -23,7 +25,8 @@ try:
     print("\n--- Métodos de la Reserva (Sala) ---")
     reserva_sala.ConfirmarEstadoDeLaReserva()
     print("Estado de la reserva:", reserva_sala.estado)
-    reserva_sala.CancelacionDeLaReserva()
+
+    reserva_sala.ProcesarReserva()
     print("Estado de la reserva:", reserva_sala.estado)
 
 except (ErrorReserva, ErrorCliente, ValueError) as e:
@@ -35,6 +38,7 @@ try:
     print("\n========================================")
     print("=== 2. PRUEBA DE ALQUILER DE EQUIPOS ===")
     print("========================================")
+
     nombre_cliente = input("Ingrese el nombre del cliente: ")
     nombre_eq = input("Ingrese el nombre del equipo: ")
     duracion = float(input("Ingrese la duración en horas (ej: 3): "))
@@ -50,7 +54,8 @@ try:
     print("\n--- Métodos de la Reserva (Equipo) ---")
     reserva_equipo.ConfirmarEstadoDeLaReserva()
     print("Estado de la reserva:", reserva_equipo.estado)
-    reserva_equipo.CancelacionDeLaReserva()
+
+    reserva_equipo.ProcesarReserva()
     print("Estado de la reserva:", reserva_equipo.estado)
 
 except (ErrorReserva, ErrorCliente, ValueError) as e:
@@ -62,21 +67,25 @@ try:
     print("\n========================================")
     print("=== 3. PRUEBA DE ASESORÍA (PRESENCIAL) ===")
     print("========================================")
+
     nombre_cliente = input("Ingrese el nombre del cliente: ")
     duracion = float(input("Ingrese la duración en horas (ej: 1): "))
 
     cliente = Cliente("1003", nombre_cliente, "maria@gmail.com", "3104567890")
-    asesoria_presencial = AsesoriaPersonalizada("Asesoría Software", 130000, duracion, "Presencial", 50000)
+    asesoria_presencial = AsesoriaPersonalizada(
+        "Asesoría Software", 130000, duracion, "Presencial", 50000
+    )
     reserva_presencial = Reserva(cliente, asesoria_presencial, duracion)
 
     print("\n--- Métodos del Servicio (Asesoría Presencial) ---")
     print(asesoria_presencial.describir_servicios())
     print("Validación de parámetros:", asesoria_presencial.validar_parametros())
 
-    print("\n--- Métodos de la Reserva (Sala) ---")
+    print("\n--- Métodos de la Reserva (Presencial) ---")
     reserva_presencial.ConfirmarEstadoDeLaReserva()
     print("Estado de la reserva:", reserva_presencial.estado)
-    reserva_presencial.CancelacionDeLaReserva()
+
+    reserva_presencial.ProcesarReserva()
     print("Estado de la reserva:", reserva_presencial.estado)
 
 except (ErrorReserva, ErrorCliente, ValueError) as e:
@@ -88,11 +97,14 @@ try:
     print("\n========================================")
     print("=== 4. PRUEBA DE ASESORÍA (VIRTUAL) ===")
     print("========================================")
+
     nombre_cliente = input("Ingrese el nombre del cliente: ")
     duracion = float(input("Ingrese la duración en horas (ej: 1): "))
 
     cliente = Cliente("1004", nombre_cliente, "maria@gmail.com", "3104567890")
-    asesoria_virtual = AsesoriaPersonalizada("Asesoría Software", 130000, duracion, "Virtual", 50000)
+    asesoria_virtual = AsesoriaPersonalizada(
+        "Asesoría Software", 130000, duracion, "Virtual", 50000
+    )
     reserva_virtual = Reserva(cliente, asesoria_virtual, duracion)
 
     print("\n--- Métodos del Servicio (Virtual) ---")
@@ -102,7 +114,8 @@ try:
     print("\n--- Métodos de la Reserva (Virtual) ---")
     reserva_virtual.ConfirmarEstadoDeLaReserva()
     print("Estado de la reserva:", reserva_virtual.estado)
-    reserva_virtual.CancelacionDeLaReserva()
+
+    reserva_virtual.ProcesarReserva()
     print("Estado de la reserva:", reserva_virtual.estado)
 
 except (ErrorReserva, ErrorCliente, ValueError) as e:
