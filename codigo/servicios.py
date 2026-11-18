@@ -34,10 +34,13 @@ class ReservaSala(Servicio):
         return (f"nombre: {self.nombre} | Espacio: {self.espacio_de_la_sala} | Costo: {self.calcular_costos()}")
     
     def validar_parametros(self):
-        if self.precio <= 0 or self.cantidad_de_tiempo <=0 or not self.espacio_de_la_sala or self.espacio_de_la_sala.strip()=="":
-            return False
-        return True 
-        
+    if not self.nombre.strip():
+        return False
+    if self.precio <= 0 or self.cantidad_de_tiempo <= 0:
+        return False
+    if not self.espacio_de_la_sala.strip():
+        return False
+    return True     
 
 class AlquilerDeEquipos(Servicio):
     def __init__(self, nombre, precio, cantidad_de_tiempo, nombre_del_equipo):
@@ -51,9 +54,13 @@ class AlquilerDeEquipos(Servicio):
         return (f"nombre: {self.nombre} | Nombre del equipo:{self.nombre_del_equipo} | Costo: {self.calcular_costos()}")
     
     def validar_parametros(self):
-        if self.precio <=0 or self.cantidad_de_tiempo <= 0 or not self.nombre_del_equipo or self.nombre_del_equipo.strip()=="":
-            return False
-        return True
+    if not self.nombre.strip():
+        return False
+    if self.precio <= 0 or self.cantidad_de_tiempo <= 0:
+        return False
+    if not self.nombre_del_equipo.strip():
+        return False
+    return True
     
 class AsesoriaPersonalizada(Servicio):
     def __init__(self, nombre, precio, cantidad_de_tiempo, modalidad_de_asesoria, costo_adicional):
@@ -72,9 +79,15 @@ class AsesoriaPersonalizada(Servicio):
     def describir_servicios(self):
         return (f"nombre: {self.nombre} | Modalidad de la asesoria: {self.modalidad_de_asesoria} | Costo:{self.calcular_costos()}")
     
-    def validar_parametros(self):
-        if self.precio <=0 or self.cantidad_de_tiempo <=0 or self.costo_adicional <0 or not self.modalidad_de_asesoria or self.modalidad_de_asesoria.strip()=="": 
-            return False
-        return True
+   def validar_parametros(self):
+    if not self.nombre.strip():
+        return False
+    if self.precio <= 0 or self.cantidad_de_tiempo <= 0:
+        return False
+    if self.costo_adicional < 0:
+        return False
+    if not self.modalidad_de_asesoria.strip():
+        return False
+    return True
     
     
