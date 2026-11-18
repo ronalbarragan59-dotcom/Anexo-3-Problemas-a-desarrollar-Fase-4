@@ -5,6 +5,7 @@ from excepciones import ErrorReserva
 
 
 class Reserva:
+
     def __init__(self, cliente, servicio, duracion):
 
         if not isinstance(cliente, Cliente):
@@ -13,7 +14,11 @@ class Reserva:
         if not isinstance(servicio, Servicio):
             raise ErrorReserva("El servicio ingresado no es valido")
 
-        if not isinstance(duracion, (int, float)) or duracion <= 0:
+        if (
+            not isinstance(duracion, (int, float))
+            or isinstance(duracion, bool)
+            or duracion <= 0
+        ):
             raise ErrorReserva("La duracion debe ser mayor que cero")
 
         if not servicio.validar_parametros():
@@ -24,23 +29,32 @@ class Reserva:
         self.duracion = duracion
         self.estado = "pendiente"
 
+    # Metodo para confirmar la reserva
     def ConfirmarEstadoDeLaReserva(self):
+
         if self.estado != "pendiente":
-            raise ErrorReserva("La reserva no se puede confirmar en su estado actual")
+            raise ErrorReserva(
+                "La reserva no se puede confirmar en su estado actual"
+            )
 
         self.estado = "Confirmada"
 
+    # Metodo para cancelar la reserva
     def CancelacionDeLaReserva(self):
-        if self.estado == "Cancelada":
-            raise ErrorReserva("La reserva ya se encuentra cancelada")
 
-        if self.estado == "Procesada":
-            raise ErrorReserva("No se puede cancelar una reserva procesada")
+        if self.estado not in ("pendiente", "Confirmada"):
+            raise ErrorReserva(
+                "La reserva no se puede cancelar en su estado actual"
+            )
 
         self.estado = "Cancelada"
 
+    # Metodo para procesar la reserva
     def ProcesarReserva(self):
+
         if self.estado != "Confirmada":
-            raise ErrorReserva("La reserva debe estar confirmada para procesarse")
+            raise ErrorReserva(
+                "La reserva debe estar confirmada para procesarse"
+            )
 
         self.estado = "Procesada"
