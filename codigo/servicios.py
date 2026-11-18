@@ -10,7 +10,7 @@ class Servicio(ABC):
         self.cantidad_de_tiempo = cantidad_de_tiempo
 
     @abstractmethod
-    def calcular_costos(self):
+    def calcular_costos(self, descuento=0, impuesto=0):
         pass
 
     @abstractmethod
@@ -30,8 +30,11 @@ class ReservaSala(Servicio):
         super().__init__(nombre, precio, cantidad_de_tiempo)
         self.espacio_de_la_sala = espacio_de_la_sala
 
-    def calcular_costos(self):
-        return self.precio * self.cantidad_de_tiempo
+    def calcular_costos(self, descuento=0, impuesto=0):
+        costo = self.precio * self.cantidad_de_tiempo
+        costo = costo - (costo * descuento / 100)
+        costo = costo + (costo * impuesto / 100)
+        return costo
 
     def describir_servicios(self):
         return f"Nombre: {self.nombre} | Espacio: {self.espacio_de_la_sala} | Costo: {self.calcular_costos()}"
@@ -52,8 +55,11 @@ class AlquilerDeEquipos(Servicio):
         super().__init__(nombre, precio, cantidad_de_tiempo)
         self.nombre_del_equipo = nombre_del_equipo
 
-    def calcular_costos(self):
-        return self.precio * self.cantidad_de_tiempo
+    def calcular_costos(self, descuento=0, impuesto=0):
+        costo = self.precio * self.cantidad_de_tiempo
+        costo = costo - (costo * descuento / 100)
+        costo = costo + (costo * impuesto / 100)
+        return costo
 
     def describir_servicios(self):
         return f"Nombre: {self.nombre} | Equipo: {self.nombre_del_equipo} | Costo: {self.calcular_costos()}"
@@ -75,11 +81,15 @@ class AsesoriaPersonalizada(Servicio):
         self.modalidad_de_asesoria = modalidad_de_asesoria
         self.costo_adicional = costo_adicional
 
-    def calcular_costos(self):
+    def calcular_costos(self, descuento=0, impuesto=0):
         if self.modalidad_de_asesoria.strip().lower() == "presencial":
-            return (self.precio * self.cantidad_de_tiempo) + self.costo_adicional
+            costo = (self.precio * self.cantidad_de_tiempo) + self.costo_adicional
         else:
-            return self.precio * self.cantidad_de_tiempo
+            costo = self.precio * self.cantidad_de_tiempo
+
+        costo = costo - (costo * descuento / 100)
+        costo = costo + (costo * impuesto / 100)
+        return costo
 
     def describir_servicios(self):
         return f"Nombre: {self.nombre} | Modalidad: {self.modalidad_de_asesoria} | Costo: {self.calcular_costos()}"
