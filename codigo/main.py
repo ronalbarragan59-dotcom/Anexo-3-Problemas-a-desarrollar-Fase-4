@@ -75,8 +75,9 @@ try:
     servicio_invalido = ReservaSala("", 0, 0, "")
     sistema.registrar_servicio(servicio_invalido)
 
-except ErrorServicio as error:
+except (ErrorServicio, ValueError, TypeError) as error:
     print("No se pudo registrar el servicio:", error)
+    sistema.registro.guardar_error(str(error))
 
 
 # OPERACION 7: Registrar una reserva correcta
