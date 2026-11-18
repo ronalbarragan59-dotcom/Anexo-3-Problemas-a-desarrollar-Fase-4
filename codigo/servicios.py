@@ -54,13 +54,13 @@ class AlquilerDeEquipos(Servicio):
         return (f"nombre: {self.nombre} | Nombre del equipo:{self.nombre_del_equipo} | Costo: {self.calcular_costos()}")
     
     def validar_parametros(self):
-    if not self.nombre.strip():
-        return False
-    if self.precio <= 0 or self.cantidad_de_tiempo <= 0:
-        return False
-    if not self.nombre_del_equipo.strip():
-        return False
-    return True
+        if not self.nombre.strip():
+            return False
+        if self.precio <= 0 or self.cantidad_de_tiempo <= 0:
+            return False
+        if not self.nombre_del_equipo.strip():
+            return False
+        return True
     
 class AsesoriaPersonalizada(Servicio):
     def __init__(self, nombre, precio, cantidad_de_tiempo, modalidad_de_asesoria, costo_adicional):
