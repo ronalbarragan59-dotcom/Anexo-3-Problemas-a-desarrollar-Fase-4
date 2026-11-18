@@ -27,15 +27,17 @@ class SistemaGestion:
                     raise ValueError("Ya existe un cliente con esa identificacion")
 
             self.clientes.append(cliente)
+
             self.registro.guardar_evento(
                 "Cliente registrado: " + cliente._identificacion
             )
 
-            print("Cliente agregado al sistema correctamente")
-
         except (ValueError, TypeError) as error:
             self.registro.guardar_error(str(error))
             raise
+
+        else:
+            print("Cliente agregado al sistema correctamente")
 
     # Metodo para consultar clientes
     def consultar_clientes(self):
@@ -54,10 +56,10 @@ class SistemaGestion:
 
         try:
             if not isinstance(servicio, Servicio):
-                raise ErrorServicio("El dato ingresado no es un servicio valido")
+                raise TypeError("El dato ingresado no es un servicio valido")
 
             if not servicio.validar_parametros():
-                raise ErrorServicio("Los datos del servicio no son validos")
+                raise ValueError("Los datos del servicio no son validos")
 
             self.servicios.append(servicio)
 
@@ -65,11 +67,12 @@ class SistemaGestion:
                 "Servicio registrado: " + servicio.nombre
             )
 
-            print("Servicio agregado al sistema correctamente")
-
-        except ErrorServicio as error:
+        except (TypeError, ValueError, AttributeError) as error:
             self.registro.guardar_error(str(error))
-            raise
+            raise ErrorServicio("No fue posible registrar el servicio") from error
+
+        else:
+            print("Servicio agregado al sistema correctamente")
 
     # Metodo para consultar servicios
     def consultar_servicios(self):
@@ -103,11 +106,15 @@ class SistemaGestion:
                 + reserva.cliente._identificacion
             )
 
-            print("Reserva agregada al sistema correctamente")
-
         except ErrorReserva as error:
             self.registro.guardar_error(str(error))
             raise
+
+        else:
+            print("Reserva agregada al sistema correctamente")
+
+        finally:
+            print("Finalizo el intento de registro de reserva.")
 
     # Metodo para consultar reservas
     def consultar_reservas(self):
