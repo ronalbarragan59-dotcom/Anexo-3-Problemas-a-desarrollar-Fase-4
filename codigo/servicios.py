@@ -1,58 +1,63 @@
 
 from abc import ABC, abstractmethod
 
+
 class Servicio(ABC):
 
     def __init__(self, nombre, precio, cantidad_de_tiempo):
-        self.nombre = nombre 
+        self.nombre = nombre
         self.precio = precio
         self.cantidad_de_tiempo = cantidad_de_tiempo
- 
+
     @abstractmethod
     def calcular_costos(self):
         pass
-    
+
     @abstractmethod
     def describir_servicios(self):
         pass
-    
+
     @abstractmethod
     def validar_parametros(self):
         pass
-    
-#CLASES HIJAS
+
+
+# CLASES HIJAS
 
 class ReservaSala(Servicio):
+
     def __init__(self, nombre, precio, cantidad_de_tiempo, espacio_de_la_sala):
         super().__init__(nombre, precio, cantidad_de_tiempo)
-        self.espacio_de_la_sala = espacio_de_la_sala 
-        
+        self.espacio_de_la_sala = espacio_de_la_sala
+
     def calcular_costos(self):
-        return self.precio * self.cantidad_de_tiempo 
-    
+        return self.precio * self.cantidad_de_tiempo
+
     def describir_servicios(self):
-        return (f"nombre: {self.nombre} | Espacio: {self.espacio_de_la_sala} | Costo: {self.calcular_costos()}")
-    
+        return f"Nombre: {self.nombre} | Espacio: {self.espacio_de_la_sala} | Costo: {self.calcular_costos()}"
+
     def validar_parametros(self):
-    if not self.nombre.strip():
-        return False
-    if self.precio <= 0 or self.cantidad_de_tiempo <= 0:
-        return False
-    if not self.espacio_de_la_sala.strip():
-        return False
-    return True     
+        if not self.nombre.strip():
+            return False
+        if self.precio <= 0 or self.cantidad_de_tiempo <= 0:
+            return False
+        if not self.espacio_de_la_sala.strip():
+            return False
+        return True
+
 
 class AlquilerDeEquipos(Servicio):
+
     def __init__(self, nombre, precio, cantidad_de_tiempo, nombre_del_equipo):
         super().__init__(nombre, precio, cantidad_de_tiempo)
         self.nombre_del_equipo = nombre_del_equipo
-        
+
     def calcular_costos(self):
         return self.precio * self.cantidad_de_tiempo
-    
+
     def describir_servicios(self):
-        return (f"nombre: {self.nombre} | Nombre del equipo:{self.nombre_del_equipo} | Costo: {self.calcular_costos()}")
-    
+        return f"Nombre: {self.nombre} | Equipo: {self.nombre_del_equipo} | Costo: {self.calcular_costos()}"
+
     def validar_parametros(self):
         if not self.nombre.strip():
             return False
@@ -61,22 +66,24 @@ class AlquilerDeEquipos(Servicio):
         if not self.nombre_del_equipo.strip():
             return False
         return True
-    
+
+
 class AsesoriaPersonalizada(Servicio):
+
     def __init__(self, nombre, precio, cantidad_de_tiempo, modalidad_de_asesoria, costo_adicional):
         super().__init__(nombre, precio, cantidad_de_tiempo)
         self.modalidad_de_asesoria = modalidad_de_asesoria
         self.costo_adicional = costo_adicional
-        
+
     def calcular_costos(self):
         if self.modalidad_de_asesoria.strip().lower() == "presencial":
             return (self.precio * self.cantidad_de_tiempo) + self.costo_adicional
         else:
             return self.precio * self.cantidad_de_tiempo
-    
+
     def describir_servicios(self):
-        return (f"nombre: {self.nombre} | Modalidad de la asesoria: {self.modalidad_de_asesoria} | Costo:{self.calcular_costos()}")
-    
+        return f"Nombre: {self.nombre} | Modalidad: {self.modalidad_de_asesoria} | Costo: {self.calcular_costos()}"
+
     def validar_parametros(self):
         if not self.nombre.strip():
             return False
@@ -87,5 +94,3 @@ class AsesoriaPersonalizada(Servicio):
         if not self.modalidad_de_asesoria.strip():
             return False
         return True
-    
-    
