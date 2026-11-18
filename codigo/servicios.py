@@ -69,25 +69,23 @@ class AsesoriaPersonalizada(Servicio):
         self.costo_adicional = costo_adicional
         
     def calcular_costos(self):
-    #Si la modalidad llega a ser presencial usamos .lower() para evitar los errores de los usuarios por si lo llegan a escribir en mayuscula o minuscula
-         if self.modalidad_de_asesoria.strip().lower() =="presencial":
-        #Aca se define la operacion o la tarifa para saber la difereancia de la asesoria presencial 
+        if self.modalidad_de_asesoria.strip().lower() == "presencial":
             return (self.precio * self.cantidad_de_tiempo) + self.costo_adicional
-         else:
-            return self.precio * self.cantidad_de_tiempo 
+        else:
+            return self.precio * self.cantidad_de_tiempo
     
     def describir_servicios(self):
         return (f"nombre: {self.nombre} | Modalidad de la asesoria: {self.modalidad_de_asesoria} | Costo:{self.calcular_costos()}")
     
-   def validar_parametros(self):
-    if not self.nombre.strip():
-        return False
-    if self.precio <= 0 or self.cantidad_de_tiempo <= 0:
-        return False
-    if self.costo_adicional < 0:
-        return False
-    if not self.modalidad_de_asesoria.strip():
-        return False
-    return True
+    def validar_parametros(self):
+        if not self.nombre.strip():
+            return False
+        if self.precio <= 0 or self.cantidad_de_tiempo <= 0:
+            return False
+        if self.costo_adicional < 0:
+            return False
+        if not self.modalidad_de_asesoria.strip():
+            return False
+        return True
     
     
