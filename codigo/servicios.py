@@ -63,7 +63,7 @@ class AsesoriaPersonalizada(Servicio):
         
     def calcular_costos(self):
     #Si la modalidad llega a ser presencial usamos .lower() para evitar los errores de los usuarios por si lo llegan a escribir en mayuscula o minuscula
-         if self.modalidad_de_asesoria.strip().lower =="presencial":
+         if self.modalidad_de_asesoria.strip().lower() =="presencial":
         #Aca se define la operacion o la tarifa para saber la difereancia de la asesoria presencial 
             return (self.precio * self.cantidad_de_tiempo) + self.costo_adicional
          else:
